@@ -31,13 +31,17 @@
     <!-- Treat missing XML doc comments as informational only; every public member below has one anyway. -->
     <NoWarn>$(NoWarn);CS1591</NoWarn>
     <PackageIcon>logo.png</PackageIcon>
+    <ApplicationIcon>logo.ico</ApplicationIcon>
   </PropertyGroup>
+  <ItemGroup>
+    <Content Include="logo.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Include="../../README.md" Pack="true" PackagePath="\" />
     <None Include="../../LICENSE" Pack="true" PackagePath="\" />
     <None Include="../../THIRD-PARTY-NOTICES.md" Pack="true" PackagePath="\" />
-    <None Include="..\..\misc\logo.png">
+    <None Include="..\..\logo\logo.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
