@@ -177,8 +177,11 @@ public sealed class BrArchiveBuilder
     }
 
     /// <summary>Serializes the currently staged entries directly to a byte array.</summary>
-    public byte[] ToArray(BrArchiveWriteOptions? options = null) => Build().ToArray(options);
-
+    public byte[] ToArray(BrArchiveWriteOptions? options = null)
+    {
+        options ??= new BrArchiveWriteOptions { SortEntries = SortEntries };
+        return Build().ToArray(options);
+    }
     /// <summary>Serializes the currently staged entries directly to a stream.</summary>
     public void Save(Stream stream, BrArchiveWriteOptions? options = null) => Build().Write(stream, options);
 
