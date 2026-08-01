@@ -1,0 +1,101 @@
+name: Release
+
+# Runs only when Directory.Build.props changes on main - i.e. whenever you bump <Version>.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "Directory.Build.props"
+
+permissions:
+  contents: read
+
+jobs:
+  # Cheap job that just figures out whether this push is an actual new version
+  # that hasn't been released yet. Keeps the expensive job from running on
+  # pushes that touch this file without changing the version.
+  check-version:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      should_release: ${{ steps.version.outputs.should_release }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # need full tag history to check what's already been released
+
+      - id: version
+        shell: bash
+        run: |
+          VERSION=$(grep -oPm1 "(?<=<Version>)[^<]+" Directory.Build.props)
+          echo "Detected version: $VERSION"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          if git rev-parse "v$VERSION" >/dev/null 2>&1; then
+            echo "v$VERSION already exists as a tag - skipping release"
+            echo "should_release=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "should_release=true" >> "$GITHUB_OUTPUT"
+          fi
+
+  release:
+    needs: check-version
+    if: needs.check-version.outputs.should_release == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # to create the GitHub Release + tag
+      id-token: write # to request the OIDC token for NuGet Trusted Publishing
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x" # one SDK builds all of netstandard2.0 / net8.0 / net10.0
+
+      - name: Restore
+        run: dotnet restore BrArchive.Net.sln
+
+      - name: Build
+        run: dotnet build BrArchive.Net.sln -c Release --no-restore
+
+      - name: Test
+        run: dotnet test BrArchive.Net.sln -c Release --no-build
+
+      - name: Pack library
+        run: dotnet pack src/BrArchive.Net/BrArchive.Net.csproj -c Release --no-build -o nupkgs
+
+      # --- NuGet Trusted Publishing: exchanges this workflow's OIDC token for a ---
+      # --- short-lived (~1hr) API key. No secrets stored in GitHub at all.      ---
+      - name: NuGet login
+        id: nuget-login
+        uses: NuGet/login@v1
+        with:
+          user: Cubeir
+
+      - name: Push to NuGet
+        run: >
+          dotnet nuget push "nupkgs/*.nupkg"
+          --api-key "${{ steps.nuget-login.outputs.NUGET_API_KEY }}"
+          --source https://www.nuget.org/api/v2/package
+          --skip-duplicate
+
+      # --- Build standalone CLI binaries for the GitHub Release ---
+      - name: Publish CLI binaries
+        shell: bash
+        run: |
+          mkdir -p release-assets
+          for rid in win-x64 linux-x64 osx-x64 osx-arm64; do
+            dotnet publish samples/BrArchive.Net.Cli \
+              -c Release -r "$rid" --self-contained -p:PublishSingleFile=true \
+              -o "publish/$rid"
+            (cd "publish/$rid" && zip -r "../../release-assets/brarchive-v${{ needs.check-version.outputs.version }}-$rid.zip" .)
+          done
+          cp nupkgs/*.nupkg release-assets/
+          cp nupkgs/*.snupkg release-assets/ 2>/dev/null || true
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ needs.check-version.outputs.version }}
+          name: v${{ needs.check-version.outputs.version }}
+          generate_release_notes: true
+          files: release-assets/*

@@ -12,8 +12,6 @@
   <!-- ===================== NuGet package metadata ===================== -->
   <PropertyGroup>
     <PackageId>BrArchive.Net</PackageId>
-    <!-- Bump this for every release you push to nuget.org - it will reject a re-push of an existing version/file combo. -->
-    <Version>1.0.0</Version>
     <Authors>Cubeir</Authors>
     <Company>Cubeir</Company>
     <Product>BrArchive.Net</Product>

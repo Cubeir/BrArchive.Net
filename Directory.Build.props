@@ -1,0 +1,16 @@
+<Project>
+
+  <PropertyGroup>
+    <!--
+      Single source of truth for the version number.
+      Every project under this folder (library, tests, CLI) picks this up automatically.
+
+      To release: bump this number, commit, push to main.
+      The Release workflow (.github/workflows/release.yml) watches this exact file -
+      when it changes, it builds everything, publishes the package to NuGet, and
+      creates a matching GitHub Release. Nothing else to trigger manually.
+    -->
+    <Version>1.0.1</Version>
+  </PropertyGroup>
+
+</Project>
