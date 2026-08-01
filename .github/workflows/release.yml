@@ -3,7 +3,8 @@ name: Release
 # Runs only when Directory.Build.props changes on main - i.e. whenever you bump <Version>.
 on:
   push:
-    branches: [main]
+    branches: [master]
+  workflow_dispatch:
     paths:
       - "Directory.Build.props"
 
