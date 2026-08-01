@@ -1,0 +1,58 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net8.0;net10.0</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>BrArchive</RootNamespace>
+    <AssemblyName>BrArchive.Net</AssemblyName>
+  </PropertyGroup>
+
+  <!-- ===================== NuGet package metadata ===================== -->
+  <PropertyGroup>
+    <PackageId>BrArchive.Net</PackageId>
+    <!-- Bump this for every release you push to nuget.org - it will reject a re-push of an existing version/file combo. -->
+    <Version>1.0.0</Version>
+    <Authors>Cubeir</Authors>
+    <Company>Cubeir</Company>
+    <Product>BrArchive.Net</Product>
+    <Description>A dependency-free, fully managed .NET library for reading, writing, and inspecting Minecraft Bedrock Edition .brarchive files - the archive format Mojang introduced in 1.21.40 to bundle resource/behavior pack JSON files. Supports parsing, querying entries, and creating/repackaging archives from scratch or from a directory.</Description>
+    <PackageTags>minecraft;bedrock;brarchive;archive;resourcepack;behaviorpack;mojang;bedrock-edition;file-format</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/Cubeir/BrArchive.Net</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Cubeir/BrArchive.Net</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <!-- Treat missing XML doc comments as informational only; every public member below has one anyway. -->
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <PackageIcon>logo.png</PackageIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="../../README.md" Pack="true" PackagePath="\" />
+    <None Include="../../LICENSE" Pack="true" PackagePath="\" />
+    <None Include="../../THIRD-PARTY-NOTICES.md" Pack="true" PackagePath="\" />
+    <None Include="..\..\misc\logo.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <!--
+    OPTIONAL, RECOMMENDED: SourceLink lets consumers step into your source code from the debugger.
+    Not added by default here because it requires a NuGet restore against nuget.org, which this
+    scaffold environment could not reach - but you should absolutely add it once you're building
+    on your own machine / CI. Just uncomment this and add a matching <PublishRepositoryUrl>true
+    and <EmbedUntrackedSources>true</EmbedUntrackedSources> to the PropertyGroup above.
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+  </ItemGroup>
+  -->
+
+</Project>
