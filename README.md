@@ -6,6 +6,13 @@ to bundle the many small JSON files inside built-in resource/behavior packs
 (`textures.brarchive`, `sounds.brarchive`, etc.) into a single file per directory,
 cutting down on filesystem I/O.
 
+[![Build Status](https://img.shields.io/github/actions/workflow/status/Cubeir/BrArchive.Net/release.yml?branch=master&label=build&style=flat-square&color=2ea44f)](https://github.com/Cubeir/BrArchive.Net/actions)
+[![Last Commit](https://img.shields.io/github/last-commit/Cubeir/BrArchive.Net?style=flat-square&color=blue)](https://github.com/Cubeir/BrArchive.Net/commits/master)
+[![Repo Size](https://img.shields.io/github/repo-size/Cubeir/BrArchive.Net?style=flat-square&color=informational)](https://github.com/Cubeir/BrArchive.Net)
+[![License](https://img.shields.io/github/license/Cubeir/BrArchive.Net?style=flat-square&color=yellow)](https://github.com/Cubeir/BrArchive.Net/blob/master/LICENSE)
+[![NuGet](https://img.shields.io/nuget/v/BrArchive.Net?style=flat-square&color=blueviolet)](https://www.nuget.org/packages/BrArchive.Net)
+[![Issues](https://img.shields.io/github/issues/Cubeir/BrArchive.Net?style=flat-square&color=critical)](https://github.com/Cubeir/BrArchive.Net/issues)
+
 There's no official public specification for this format. This library is an
 independent, clean-room C# implementation based on the on-disk layout as understood
 from community reverse-engineering, cross-checked against two existing open-source
