@@ -24,10 +24,12 @@ public sealed class BrArchiveEntry
 
     /// <summary>
     /// <see langword="true"/> if this entry has embedded content in the archive's data block.
-    /// Some archives contain entries with a content length of zero - observed in the wild for
-    /// certain non-JSON files - which this library surfaces as an entry with empty
-    /// <see cref="Data"/> and <see cref="HasData"/> set to <see langword="false"/>, rather than
-    /// silently guessing at a file that isn't actually embedded.
+    /// Some archives contain entries with a content length of zero - this has been reported for
+    /// some non-JSON files historically, though that's an occasional observation, not a rule the
+    /// format enforces, and what gets embedded appears to have changed across game versions (do
+    /// not assume all binary/image entries lack content, or that all JSON entries have it). This
+    /// library surfaces a zero-length entry as one with empty <see cref="Data"/> and
+    /// <see cref="HasData"/> set to <see langword="false"/>, rather than guessing.
     /// </summary>
     public bool HasData { get; }
 

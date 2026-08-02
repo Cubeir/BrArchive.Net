@@ -114,7 +114,8 @@ await archive.WriteFileAsync("copy.brarchive");
 ## Get the CLI tool
 
 The `samples/BrArchive.Net.Cli` project in this repository is a small command-line
-tool built on top of the library, useful on its own and as a reference for the API:
+tool built on top of the library, useful on its own and as a reference for the API.  
+If you just want a command-line tool and don't write .NET code:
 
 - **Download a ready-to-run build** - grab the zip for your OS from the
   [Releases page](https://github.com/Cubeir/BrArchive.Net/releases), unzip it,
@@ -147,8 +148,11 @@ brarchive pack ./my_textures textures.brarchive --recursive
 - The full byte-level layout, with field-by-field offsets, is documented in the
   XML doc comments on `BrArchiveFormat` in
   [`src/BrArchive.Net/BrArchiveFormat.cs`](https://github.com/Cubeir/BrArchive.Net/blob/master/src/BrArchive.Net/BrArchiveFormat.cs).
-- Some entries in the wild have a content length of zero - this library surfaces
-  those as an entry with empty `Data` and `HasData == false`, rather than guessing.
+- Some entries have a content length of zero - historically a common case for non-JSON
+  files specifically, though that's an observation, not a rule the format enforces, and
+  it appears to have changed across game versions as Mojang has expanded what gets
+  embedded. This library surfaces a zero-length entry as one with empty `Data` and
+  `HasData == false`, rather than guessing - it never assumes content based on file type.
 - Because this is a community-derived understanding of an undocumented format
   rather than an official spec, treat any single-project reverse-engineering
   (including this one) with appropriate skepticism, and please open an issue if

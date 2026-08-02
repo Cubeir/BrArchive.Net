@@ -43,8 +43,12 @@ namespace BrArchive;
 /// </code>
 /// </para>
 /// <para>
-/// A content length of 0 means the entry has no embedded bytes in this archive (observed in the
-/// wild for some non-JSON entries). Reading such an entry yields an empty <see cref="BrArchiveEntry.Data"/>.
+/// A content length of 0 means the entry has no embedded bytes in this archive. This has been
+/// observed in some archives for some entries - historically, non-JSON files were a common case,
+/// though that isn't a rule the format enforces, and doesn't necessarily hold for every game
+/// version (Mojang appears to have expanded what gets embedded over time). Reading such an entry
+/// yields an empty <see cref="BrArchiveEntry.Data"/>; anything with a non-zero length, JSON or
+/// otherwise, is read back exactly as stored.
 /// </para>
 /// </remarks>
 public static class BrArchiveFormat
