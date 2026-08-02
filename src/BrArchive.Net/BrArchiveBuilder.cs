@@ -176,19 +176,19 @@ public sealed class BrArchiveBuilder
         return new BrArchiveFile(entries, formatVersion);
     }
 
+    private BrArchiveWriteOptions ResolveOptions(BrArchiveWriteOptions? options) =>
+    options ?? new BrArchiveWriteOptions { SortEntries = SortEntries };
+
     /// <summary>Serializes the currently staged entries directly to a byte array.</summary>
-    public byte[] ToArray(BrArchiveWriteOptions? options = null)
-    {
-        options ??= new BrArchiveWriteOptions { SortEntries = SortEntries };
-        return Build().ToArray(options);
-    }
+    public byte[] ToArray(BrArchiveWriteOptions? options = null) => Build().ToArray(ResolveOptions(options));
+
     /// <summary>Serializes the currently staged entries directly to a stream.</summary>
-    public void Save(Stream stream, BrArchiveWriteOptions? options = null) => Build().Write(stream, options);
+    public void Save(Stream stream, BrArchiveWriteOptions? options = null) => Build().Write(stream, ResolveOptions(options));
 
     /// <summary>Serializes the currently staged entries directly to a file on disk, overwriting it if it already exists.</summary>
-    public void SaveFile(string path, BrArchiveWriteOptions? options = null) => Build().WriteFile(path, options);
+    public void SaveFile(string path, BrArchiveWriteOptions? options = null) => Build().WriteFile(path, ResolveOptions(options));
 
     /// <summary>Asynchronously serializes the currently staged entries directly to a file on disk.</summary>
     public Task SaveFileAsync(string path, BrArchiveWriteOptions? options = null, CancellationToken cancellationToken = default) =>
-        Build().WriteFileAsync(path, options, cancellationToken);
+        Build().WriteFileAsync(path, ResolveOptions(options), cancellationToken);
 }
