@@ -1,12 +1,5 @@
 # BrArchive.Net
 
-If you make Minecraft Bedrock Edition add-ons: `.brarchive` is the format Mojang
-uses to bundle a resource/behavior pack's JSON files into single per-directory
-archives for faster loading. This library lets you look inside existing ones or
-build your own - as a .NET library, or via the ready-to-run
-[CLI tool](#get-the-cli-tool) below if you just want a command-line utility and
-don't write code.
-
 A dependency-free, fully managed .NET library for reading, writing, and inspecting
 Minecraft Bedrock Edition **`.brarchive`** files - the archive format Mojang introduced
 to bundle the many small JSON files inside built-in resource/behavior packs
