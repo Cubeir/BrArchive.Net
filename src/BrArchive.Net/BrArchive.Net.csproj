@@ -15,7 +15,7 @@
     <Authors>Cubeir</Authors>
     <Company>Cubeir</Company>
     <Product>BrArchive.Net</Product>
-    <Description>A dependency-free, fully managed .NET library for reading, writing, and inspecting Minecraft Bedrock Edition .brarchive files - a propreitery archive format Mojang introduced to bundle resource/behavior pack JSON files. Supports parsing, querying entries, and creating/repackaging archives from scratch or from a directory.</Description>
+    <Description>A dependency-free, fully managed .NET library for reading, writing, and inspecting Minecraft Bedrock Edition's .brarchive files - a propreitery archive format Mojang introduced to bundle resource/behavior pack files. Supports parsing, querying entries, and creating/repackaging archives from scratch or from a directory.</Description>
     <PackageTags>minecraft;bedrock;brarchive;archive;resourcepack;behaviorpack;mojang;bedrock-edition;file-format</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
