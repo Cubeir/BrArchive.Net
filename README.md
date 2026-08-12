@@ -2,9 +2,8 @@
 
 A dependency-free, fully managed .NET library for reading, writing, and inspecting
 Minecraft Bedrock Edition **`.brarchive`** files - the archive format Mojang introduced
-to bundle the many small JSON files inside built-in resource/behavior packs
-(`textures.brarchive`, `sounds.brarchive`, etc.) into a single file per directory,
-cutting down on filesystem I/O.
+to bundle the many small files inside built-in resource/behavior packs
+(`textures.brarchive`, `sounds.brarchive`, etc.) into a single file per directory likely to improve speed.
 
 There's no official public specification for this format. This library is an
 independent, clean-room C# implementation based on the on-disk layout as understood
