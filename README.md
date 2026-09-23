@@ -207,5 +207,4 @@ Contributions welcome - please open an issue or PR. Licensed under the
 [MIT License](https://github.com/Cubeir/BrArchive.Net/blob/master/LICENSE). See
 [`THIRD-PARTY-NOTICES.md`](https://github.com/Cubeir/BrArchive.Net/blob/master/THIRD-PARTY-NOTICES.md)
 for credit to the prior open-source work this library's understanding of the
-format is based on, and [`CHANGELOG.md`](https://github.com/Cubeir/BrArchive.Net/blob/master/CHANGELOG.md)
-for release history.
+format is based on.
